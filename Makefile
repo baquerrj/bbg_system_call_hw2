@@ -11,13 +11,15 @@ PROG := ./bin/util
 
 all: $(PROG)
 
-./src/main.o: ./src/main.c
+./res/%.o:	$(SRC)/%.c
+	mkdir -p ./res
 	$(CC) $(CFLAGS) -o $@ $^
 
-./bin/util: ./src/main.o
+$(PROG): $(OBJS)
 	mkdir -p ./bin
 	$(CC) -o $@ $^
 
 clean: 
-	rm -rf ./bin/*
-	rm -f  ./src/*.o
+	@echo $(OBJS)
+	rm -rf ./bin
+	rm -rf ./res
