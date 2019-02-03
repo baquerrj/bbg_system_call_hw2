@@ -2,6 +2,7 @@
 
 void change_mode( file_t* p_file, char* p_action, char* p_input )
 {
+   printf( "Attempting to change file mode...\n" );
    if( NULL == p_file->p_file || NONE == p_file->mode )
    {
       printf(" No file open...\n" );
@@ -41,12 +42,34 @@ void change_mode( file_t* p_file, char* p_action, char* p_input )
       }
       if( NULL == p_file->p_file )
       {
-         perror( "ERROR: " );
+         perror( "ERROR" );
          p_file->mode = NONE;
       }
-      else
+      
+      /* Determine if FILE mode changed */
+      switch( p_file->mode )
       {
-         printf( "Re-opened file \"%s\" in %s mode\n", p_file->name, p_input );
+         case READ:
+            printf( "Re-opened file \"%s\" in read mode\n", p_file->name );
+            break;
+         case READU:
+            printf( "Re-opened file \"%s\" in read  nd update mode\n", p_file->name );
+            break;
+         case WRITE:
+            printf( "Re-opened file \"%s\" in write mode\n", p_file->name );
+            break;
+         case WRITEU:
+            printf( "Re-opened file \"%s\" in write and update mode\n", p_file->name );
+            break;
+         case APPEND:
+            printf( "Re-opened file \"%s\" in append mode\n", p_file->name );
+            break;
+         case APPNDU:
+            printf( "Re-opened file \"%s\" in appened/update mode\n", p_file->name );
+            break;
+         default:
+            fprintf( stderr, "Error changing permissions\n" );
+            break;
       }
    }
    return;
