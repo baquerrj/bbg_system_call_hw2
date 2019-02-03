@@ -27,10 +27,12 @@ int main( void )
       {
          if( 0 == strcmp( "quit\n", p_input ) )
          {
+            printf( "Freeing memory.\n" );
             free( p_file );
             free( p_input );
             free( p_arg1 );
             free( p_arg2 );
+            printf( "Exiting...\n" );
             /* Exiting...*/
             return 0;
          }
