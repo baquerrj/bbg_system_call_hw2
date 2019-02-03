@@ -2,7 +2,7 @@
 # Makefile for FILE IO Application 
 ###################################
 
-CFLAGS= -Wall -c -I./inc
+CFLAGS= -Wall -Wextra -g -c -I./inc
 
 SRC  := ./src
 OBJS := $(patsubst ./src/%.c, ./res/%.o, $(shell find . -name "*.c"))
