@@ -12,7 +12,7 @@ int main( void )
 {
    /* Initialize pointers */
    file_t* p_file = (file_t*) malloc( sizeof( file_t ) );
-   p_file->p_file = NULL;
+   p_file->file = NULL;
    p_file->mode   = NONE;
 
    char* p_input = (char*) calloc( sizeof( char ), MAX_INPUT_LENGTH );

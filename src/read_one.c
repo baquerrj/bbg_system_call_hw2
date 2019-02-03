@@ -2,7 +2,7 @@
 
 void read_one( file_t* p_file, char* p_action, char* p_input )
 {
-   if( NULL == p_file->p_file || (0 != strcmp(p_file->name, p_input)) )
+   if( NULL == p_file->file || (0 != strcmp(p_file->name, p_input)) )
    {
       fprintf( stderr, "Error reading file \"%s\"\n: No such file or directory\n",
                p_input );
@@ -21,11 +21,11 @@ void read_one( file_t* p_file, char* p_action, char* p_input )
          return;
    }
    char c;
-   if( !feof( p_file->p_file ) )
+   if( !feof( p_file->file ) )
    {
-      c = fgetc( p_file->p_file );
+      c = fgetc( p_file->file );
       printf( "%c\n", c );
    }
-   rewind( p_file->p_file );
+   rewind( p_file->file );
    return;
 }

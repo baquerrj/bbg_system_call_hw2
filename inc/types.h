@@ -14,7 +14,7 @@
 typedef struct file_s {
     int   mode;
     char  name[50];
-    FILE* p_file;
+    FILE* file;
 } file_t;
 
 typedef void (*fp_file)( file_t*, char*, char* );
