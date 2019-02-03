@@ -1,7 +1,6 @@
 #ifndef WRITE_H
 #define WRITE_H
 
-#include <stdio.h>
 #include <string.h>
 #include <types.h>
 
