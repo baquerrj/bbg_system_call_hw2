@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <errno.h>
 
-#define MAX_INPUT_LENGTH 50
+#define MAX_INPUT_LENGTH 100
 
 #define READ   0x0001   /* Ready-Only */
 #define WRITE  0x0002   /* Write-Only */
