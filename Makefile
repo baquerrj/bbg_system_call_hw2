@@ -5,21 +5,25 @@
 CFLAGS= -Wall -Wextra -g -c -I./inc
 
 SRC  := ./src
-OBJS := $(patsubst ./src/%.c, ./res/%.o, $(shell find . -name "*.c"))
-
+RES  := ./res
+OBJS := $(patsubst ./src/%.c, $(RES)/%.o, $(shell find . -name "*.c"))
+$(shell export LD_LIBRARY_PATH="../shared:%(LD_LIBRARY_PATH)")
 PROG := ./bin/util
 
 all: $(PROG)
 
-./res/%.o:	$(SRC)/%.c
-	mkdir -p ./res
-	$(CC) $(CFLAGS) -o $@ $^
-
-$(PROG): $(OBJS)
+$(PROG): $(RES)/libio.so
 	mkdir -p ./bin
-	$(CC) -o $@ $^
+	$(CC) -o $@ $^ -L$(RES) -lio
+
+$(RES)/libio.so: $(OBJS)
+	$(CC) -shared -o $(RES)/libio.so $(OBJS)
+
+$(RES)/%.o:	$(SRC)/%.c
+	mkdir -p $(RES)
+	$(CC) $(CFLAGS) -fPIC -o $@ $^
 
 clean: 
 	@echo $(OBJS)
 	rm -rf ./bin
-	rm -rf ./res
+	rm -rf $(RES)
