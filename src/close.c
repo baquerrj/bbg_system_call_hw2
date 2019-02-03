@@ -21,7 +21,8 @@ void close( file_t* p_file, char* p_action, char* p_input )
       }
       else
       {
-         fprintf( stderr, "Error closing file \"%s\": %s.\n", p_input, strerror( errno ));
+         fprintf( stderr, "Error closing file \"%s\".\n", p_input );
+         perror( "ERROR" );
       }
       return;
    }

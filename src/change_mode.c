@@ -26,9 +26,12 @@ void change_mode( file_t* p_file, char* p_action, char* p_input )
          p_file->mode = APPEND;
       }
 
-      if( NULL == p_file->file )
+      if( NULL == p_file->file  || ferror( p_file->file ) )
       {
+         fprintf( stderr, "Error changing permissions of \"%s\".\n",
+                  p_file->name );
          perror( "ERROR" );
+         clearerr( p_file->file );
          p_file->mode = NONE;
       }
       
