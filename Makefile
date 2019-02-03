@@ -2,7 +2,7 @@
 # Makefile for FILE IO Application 
 ###################################
 
-CFLAGS= -Wall -Wextra -g -c -I./inc
+CFLAGS= -Wall -Wextra -c -I./inc
 
 SRC  := ./src
 RES  := ./res
