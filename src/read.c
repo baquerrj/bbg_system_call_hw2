@@ -4,7 +4,7 @@ void read( file_t* p_file, char* p_action, char* p_input )
 {
    if( NULL == p_file->p_file || (0 != strcmp(p_file->name, p_input)) )
    {
-      fprintf( stderr, "Error reading file \"%s\"\n: No such file or directory.\n",
+      fprintf( stderr, "Error reading file \"%s\": No such file or directory.\n",
                p_input );
       return;      
    }
@@ -13,7 +13,7 @@ void read( file_t* p_file, char* p_action, char* p_input )
       printf( "Invalid action!" );
       return;
    }
-   if( READ != p_file->mode || READU != p_file->mode )
+   if( READ != p_file->mode )
    {
       fprintf( stderr, "Error reading file \"%s\": Permission denied.\n",
             p_file->name );
