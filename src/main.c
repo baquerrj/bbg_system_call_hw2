@@ -5,51 +5,41 @@
 #include <string.h>
 #include <stdint.h>
 
-#include "commands.h"
-
-#define MAX_INPUT_LENGTH 20
-
+#include "file_actions.h"
+#include "types.h"
 
 int main( void )
 {
    /* Initialize pointers */
-   FILE* fp = NULL;
-   char* p_input = (char*) calloc( MAX_INPUT_LENGTH, sizeof( char* ) );
-   char* p_cmd = (char*) calloc( MAX_INPUT_LENGTH, sizeof( char* ) );
+   file_t* p_file = (file_t*) malloc( sizeof( file_t ) );
+   p_file->p_file = NULL;
+   p_file->mode   = NONE;
+
+   char* p_input = (char*) calloc( sizeof( char ), MAX_INPUT_LENGTH );
+   char* p_arg1  = (char*) calloc( sizeof( char ), MAX_INPUT_LENGTH );
+   char* p_arg2  = (char*) calloc( sizeof( char ), MAX_INPUT_LENGTH );
    
-   /* Initialize input arguments */
-   uint64_t in1 = 0;
-   uint64_t in2 = 0;
+   printf( "Hello World!\nWriting interesting string\nInteresting enough?\n" );
    while( 1 )
    {
-      printf( ">  " );
+      printf( "\n\r>  " );
       if( NULL != fgets( p_input, MAX_INPUT_LENGTH, stdin ) )
       {
          if( 0 == strcmp( "quit\n", p_input ) )
          {
+            free( p_file );
+            free( p_input );
+            free( p_arg1 );
+            free( p_arg2 );
             /* Exiting...*/
             return 0;
          }
-         else if( 0 == strcmp( "open\n", p_input ) )
-         {
-            if( NULL == fp )
-            {
-               printf( "opening a file...\n" );
-               fp = fopen( "/tmp/test_file", "w+" );
-            }
-         }
-         else if( 0 == strcmp( "close\n", p_input ) )
-         {  
-            if( NULL != fp )
-            {
-               printf( "closing file...\n" );
-               fclose( fp );
-            }
-         }
          else
          {
-            sscanf( p_input, "%s %lx %lx", p_cmd, &in1, &in2 );
-            getCmd( p_cmd, in1, in2 );
+            memset( p_arg1, 0x00, MAX_INPUT_LENGTH - 1);
+            memset( p_arg2, 0x00, MAX_INPUT_LENGTH - 1);
+            sscanf( p_input, "%s %[^\n]", p_arg1, p_arg2 );
+            file_action( p_file, p_arg1, p_arg2 );
             continue;
          }
          continue;
@@ -58,14 +48,5 @@ int main( void )
 
    }
 
-/*
-   FILE* p_fi = fopen("/tmp/test_file", "w+");
-
-   fprintf( p_fi, "test writing to file using fprintf... \n");
-
-   fputs( "test writing to file using fputs... \n", fputs);
-
-   fclose( p_fi );
-   */
    return 1;
 }
