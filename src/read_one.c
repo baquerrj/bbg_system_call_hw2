@@ -26,5 +26,6 @@ void read_one( file_t* p_file, char* p_action, char* p_input )
       c = fgetc( p_file->p_file );
       printf( "%c\n", c );
    }
+   rewind( p_file->p_file );
    return;
 }
