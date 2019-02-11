@@ -1,0 +1,18 @@
+open test_result
+write hello world
+write this is a test
+write this should all be on their own lines
+write writing an obnoxiously long string to test result
+write test special characters !@#$%^&*()/:>\\)
+change read
+read test_result
+change append
+write appending one line
+change read
+read test_result
+change write
+write this should be the only line here
+change read
+read test_result
+close test_result
+quit
