@@ -3,7 +3,7 @@
 
 void write( file_t* p_file, char* p_action, char* p_input )
 {
-   if( NULL  == p_file->p_file )
+   if( NULL  == p_file->file )
    {
       fprintf( stderr, "Error writing to file: No such file or directory.\n" );
       return;
@@ -16,9 +16,15 @@ void write( file_t* p_file, char* p_action, char* p_input )
    }
    if( 0 == strcmp( "write", p_action ) )
    {
-      if( 0 > fprintf( p_file->p_file, "%s\n", p_input ) )
+      if( 0 > fprintf( p_file->file, "%s\n", p_input ) )
       {
-         perror( "ERROR" );
+         if( ferror( p_file->file ) )
+         {
+            fprintf( stderr, "Error writing to file \"%s\".\n",
+                     p_file->name );
+            perror( "ERROR" );
+            clearerr( p_file->file );
+         }
          return;
       }
    }

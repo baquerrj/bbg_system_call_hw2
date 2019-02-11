@@ -11,15 +11,18 @@ void open( file_t* p_file, char* p_action, char* p_input )
    }
    if( 0 == strcmp( "open", p_action ) )
    {
-      if( NULL != (p_file->p_file = fopen( p_input, "a" ) ) )
+      if( NULL != (p_file->file = fopen( p_input, "a" ) ) )
       {
          p_file->mode = APPEND;
          strcpy( p_file->name, p_input );
          printf( "Opened file \"%s\" in append mode...\n", p_file->name );
       }
-      else
+      else if( ferror( p_file->file ) )
       {
-         perror( "ERROR" ); 
+         fprintf( stderr, "Error opening file \"%s\".\n",
+                  p_file->name );
+         perror( "ERROR" );
+         clearerr( p_file->file );
       }
       return;
    }
